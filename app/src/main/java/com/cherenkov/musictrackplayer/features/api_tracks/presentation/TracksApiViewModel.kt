@@ -1,14 +1,13 @@
 package com.cherenkov.musictrackplayer.features.api_tracks.presentation
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.compose.runtime.State
 import androidx.lifecycle.viewModelScope
 import com.cherenkov.musictrackplayer.core.ui.toUiText
 import com.cherenkov.musictrackplayer.features.api_tracks.domain.repository.MusicChartsRepository
 import com.nikitacherenkov.musicplayer.core_network.domain.onError
 import com.nikitacherenkov.musicplayer.core_network.domain.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -33,11 +32,15 @@ class TracksApiViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000L),
             _state.value
         )
+    private var searchJob: Job? = null
 
     fun onAction(action: TracksApiAction) {
         when (action) {
             is TracksApiAction.OnTrackClicked -> {
 
+            }
+            is TracksApiAction.OnChangedText -> {
+                findTracks(text = action.text)
             }
         }
     }
@@ -63,4 +66,33 @@ class TracksApiViewModel @Inject constructor(
                 ) }
             }
     }
+
+    private fun findTracks(text: String){
+        searchJob?.cancel()
+
+        if (text != ""){
+            searchJob = viewModelScope.launch {
+                _state.update { it.copy(
+                    isFinding = true
+                ) }
+                repository.findTracks(text)
+                    .onSuccess { result ->
+                        _state.update { it.copy(
+                            isFinding = false,
+                            errorMessage = null,
+                            searchedSongs = result
+                        ) }
+                    }
+                    .onError { error ->
+                        _state.update { it.copy(
+                            charts = emptyList(),
+                            isLoading = false,
+                            errorMessage = error.toUiText()
+                        ) }
+                    }
+            }
+        }
+
+    }
+
 }

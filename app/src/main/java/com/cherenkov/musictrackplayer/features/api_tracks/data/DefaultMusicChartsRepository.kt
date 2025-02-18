@@ -21,4 +21,12 @@ class DefaultMusicChartsRepository @Inject constructor(
             }
     }
 
+    override suspend fun findTracks(text: String): Result<List<Items>, DataError.Remote> {
+        return remoteMusicDataSource
+            .getFindingSongs(text)
+            .map { dto ->
+                dto.data.map { it.toItem() }
+            }
+    }
+
 }
