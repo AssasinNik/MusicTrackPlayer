@@ -8,4 +8,6 @@ interface MusicChartsRepository {
 
     suspend fun searchCharts(): Result<List<Items>, DataError.Remote>
 
+    suspend fun findTracks(text: String): Result<List<Items>, DataError.Remote>
+
 }
