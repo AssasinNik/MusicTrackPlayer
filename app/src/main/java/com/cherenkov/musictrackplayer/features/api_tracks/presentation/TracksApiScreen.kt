@@ -107,7 +107,6 @@ fun TracksApiScreen(
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .padding(horizontal = 16.dp)
                                     .animateContentSize(animationSpec = tween(700, easing = FastOutSlowInEasing)),
                                 verticalArrangement = Arrangement.spacedBy(12.dp),
                                 contentPadding = PaddingValues(bottom = 16.dp)
@@ -120,7 +119,6 @@ fun TracksApiScreen(
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .padding(horizontal = 16.dp)
                                     .animateContentSize(animationSpec = tween(700, easing = FastOutSlowInEasing)),
                                 verticalArrangement = Arrangement.spacedBy(12.dp),
                                 contentPadding = PaddingValues(bottom = 16.dp)
@@ -146,7 +144,6 @@ fun TracksApiScreen(
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .padding(horizontal = 16.dp)
                                     .animateContentSize(animationSpec = tween(700, easing = FastOutSlowInEasing)),
                                 verticalArrangement = Arrangement.spacedBy(12.dp),
                                 contentPadding = PaddingValues(bottom = 16.dp)
@@ -168,7 +165,6 @@ fun TracksApiScreen(
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .padding(horizontal = 16.dp)
                                     .animateContentSize(animationSpec = tween(700, easing = FastOutSlowInEasing)),
                                 verticalArrangement = Arrangement.spacedBy(12.dp),
                                 contentPadding = PaddingValues(bottom = 16.dp)
@@ -177,7 +173,6 @@ fun TracksApiScreen(
                                     item { SectionTitle(title = "Популярное") }
                                     item {
                                         LazyRow(
-                                            modifier = Modifier.padding(vertical = 16.dp),
                                             horizontalArrangement = Arrangement.spacedBy(16.dp),
                                             contentPadding = PaddingValues(horizontal = 16.dp)
                                         ) {
@@ -288,7 +283,7 @@ fun SectionTitle(title: String) {
         text = title,
         style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
         color = Color.White,
-        modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
+        modifier = Modifier.padding(start = 24.dp, top = 8.dp, bottom = 8.dp)
     )
 }
 
@@ -321,6 +316,7 @@ fun SongListItem(song: Items) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 16.dp)
             .clickable { /* Обработка клика по песне */ },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -376,7 +372,7 @@ fun SongListItem(song: Items) {
 fun SongListItemShimmer() {
     val shimmerBrush = rememberShimmerBrush()
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF2C2C2C))
