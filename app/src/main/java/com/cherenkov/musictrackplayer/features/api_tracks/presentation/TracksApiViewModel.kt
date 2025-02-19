@@ -85,7 +85,7 @@ class TracksApiViewModel @Inject constructor(
                     }
                     .onError { error ->
                         _state.update { it.copy(
-                            charts = emptyList(),
+                            searchedSongs = emptyList(),
                             isLoading = false,
                             errorMessage = error.toUiText()
                         ) }

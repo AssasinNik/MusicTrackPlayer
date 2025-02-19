@@ -7,7 +7,7 @@ import com.cherenkov.musictrackplayer.features.api_tracks.domain.model.Items
 fun DataXXX.toItem(): Items {
     return Items(
         id = id,
-        cover = album.cover,
+        cover = album.cover_big,
         title = title,
         artist_name = artist.name
     )
@@ -16,7 +16,7 @@ fun DataXXX.toItem(): Items {
 fun Data.toItem(): Items {
     return Items(
         id = id,
-        cover = album.cover,
+        cover = album.cover_big,
         title = title,
         artist_name = artist.name
     )
